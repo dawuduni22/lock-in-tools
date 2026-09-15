@@ -1,0 +1,82 @@
+{
+  "manifest_version": 3,
+  "name": "HyperKeypad - AI Keypad",
+  "short_name": "HyperKeypad",
+  "version": "1.1.1",
+  "description": "A floating keypad for AI chats. Send saved prompts with one press, or paste and send your clipboard with a single key.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "HyperKeypad",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "clipboardRead",
+    "offscreen",
+    "scripting",
+    "activeTab"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*",
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*",
+        "https://grok.com/*",
+        "https://chat.deepseek.com/*",
+        "https://www.kimi.com/*",
+        "https://kimi.com/*",
+        "https://kimi.moonshot.cn/*",
+        "https://chat.mistral.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://chat.qwen.ai/*",
+        "https://chat.z.ai/*",
+        "https://copilot.microsoft.com/*",
+        "https://www.meta.ai/*",
+        "https://poe.com/*",
+        "https://huggingface.co/chat/*",
+        "https://lmarena.ai/*",
+        "https://t3.chat/*",
+        "https://duck.ai/*"
+      ],
+      "js": [
+        "content/defaults.js",
+        "content/sites.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": {
+        "default": "Alt+Shift+K"
+      },
+      "description": "Show or hide the keypad"
+    },
+    "toggle-paste-mode": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Turn paste and send mode on or off"
+    }
+  }
+}

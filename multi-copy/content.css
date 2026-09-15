@@ -1,0 +1,300 @@
+/* =========================================================================
+   Multi-Copy — injected UI styles
+   Everything is scoped under #adhd-multicopy-root so we don't touch the page.
+   Dynamic geometry (drag position, selection box size) is set from JS via the
+   CSSOM, which is exempt from page CSP — so strict pages can't break it.
+   ========================================================================= */
+
+#adhd-multicopy-root {
+  /* Palette: calm slate + one teal accent. Low visual noise on purpose. */
+  --mc-ink: #10151f;
+  --mc-panel: #1b2230;
+  --mc-panel-2: #232c3d;
+  --mc-line: #313c52;
+  --mc-text: #eef2f8;
+  --mc-muted: #9aa7bd;
+  --mc-accent: #33d6a6;
+  --mc-accent-ink: #06231a;
+  --mc-danger: #ff8087;
+  --mc-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+  all: initial;
+  position: fixed;
+  z-index: 2147483001;
+  right: 20px;
+  bottom: 20px;
+  width: 264px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  color: var(--mc-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#adhd-multicopy-root * {
+  box-sizing: border-box;
+}
+
+.mc-panel {
+  background: var(--mc-panel);
+  border: 1px solid var(--mc-line);
+  border-radius: 16px;
+  box-shadow: var(--mc-shadow);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---- Header / drag handle ---------------------------------------------- */
+.mc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  cursor: grab;
+  background: linear-gradient(180deg, var(--mc-panel-2), var(--mc-panel));
+  border-bottom: 1px solid var(--mc-line);
+}
+.mc-head:active {
+  cursor: grabbing;
+}
+.mc-grip {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  color: var(--mc-muted);
+}
+.mc-title {
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  flex: 1 1 auto;
+}
+.mc-count {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mc-accent);
+  background: rgba(51, 214, 166, 0.12);
+  border: 1px solid rgba(51, 214, 166, 0.35);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---- Body -------------------------------------------------------------- */
+.mc-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.mc-hint {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--mc-muted);
+  margin: -1px 0 2px;
+}
+
+.mc-preview {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--mc-muted);
+  background: var(--mc-ink);
+  border: 1px solid var(--mc-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  max-height: 96px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.mc-preview:empty {
+  display: none;
+}
+
+/* ---- Buttons ----------------------------------------------------------- */
+.mc-btn {
+  appearance: none;
+  border: 1px solid var(--mc-line);
+  background: var(--mc-panel-2);
+  color: var(--mc-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.12s ease, transform 0.04s ease, border-color 0.12s ease;
+}
+.mc-btn:hover {
+  background: #2a3446;
+}
+.mc-btn:active {
+  transform: translateY(1px);
+}
+.mc-btn:focus-visible {
+  outline: 2px solid var(--mc-accent);
+  outline-offset: 2px;
+}
+.mc-btn svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.mc-btn.mc-primary {
+  background: var(--mc-accent);
+  color: var(--mc-accent-ink);
+  border-color: transparent;
+  font-weight: 700;
+  padding: 12px;
+  font-size: 13.5px;
+}
+.mc-btn.mc-primary:hover {
+  background: #43e6b6;
+}
+.mc-btn.mc-primary.mc-arming {
+  background: #ffd166;
+  color: #2b2000;
+}
+
+.mc-row {
+  display: flex;
+  gap: 8px;
+}
+.mc-row .mc-btn {
+  flex: 1 1 0;
+}
+
+.mc-btn.mc-quiet {
+  background: transparent;
+  color: var(--mc-muted);
+  border-color: transparent;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 6px;
+}
+.mc-btn.mc-quiet:hover {
+  color: var(--mc-text);
+  background: var(--mc-panel-2);
+}
+.mc-btn.mc-danger:hover {
+  color: var(--mc-danger);
+}
+
+.mc-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- Text / Image mode toggle ------------------------------------------ */
+.mc-seg {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--mc-ink);
+  border: 1px solid var(--mc-line);
+  border-radius: 11px;
+}
+.mc-seg-btn {
+  appearance: none;
+  flex: 1 1 0;
+  border: 0;
+  background: transparent;
+  color: var(--mc-muted);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.mc-seg-btn:hover {
+  color: var(--mc-text);
+}
+.mc-seg-btn.mc-on {
+  background: var(--mc-panel-2);
+  color: var(--mc-text);
+  box-shadow: inset 0 0 0 1px var(--mc-line);
+}
+.mc-seg-btn:focus-visible {
+  outline: 2px solid var(--mc-accent);
+  outline-offset: 2px;
+}
+
+/* ---- Capture overlay + selection box ----------------------------------- */
+#adhd-multicopy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  cursor: crosshair;
+  background: rgba(16, 21, 31, 0.28);
+  user-select: none;
+}
+.mc-guide {
+  position: fixed;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  background: #10151f;
+  color: #eef2f8;
+  border: 1px solid #313c52;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font: 600 12.5px ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+.mc-guide b {
+  color: #33d6a6;
+}
+.mc-selbox {
+  position: fixed;
+  border: 2px solid #33d6a6;
+  background: rgba(51, 214, 166, 0.14);
+  border-radius: 4px;
+  pointer-events: none;
+  display: none;
+}
+
+/* ---- Toast ------------------------------------------------------------- */
+.mc-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483002;
+  background: #10151f;
+  color: #eef2f8;
+  border: 1px solid #313c52;
+  border-left: 3px solid #33d6a6;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font: 600 13px ui-sans-serif, system-ui, sans-serif;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+  max-width: 280px;
+}
+.mc-toast.mc-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.mc-toast.mc-warn {
+  border-left-color: #ffd166;
+}
+.mc-toast.mc-bad {
+  border-left-color: #ff8087;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #adhd-multicopy-root .mc-btn,
+  #adhd-multicopy-root .mc-toast {
+    transition: none;
+  }
+}

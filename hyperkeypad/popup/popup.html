@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HyperKeypad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header class="top">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 20 20"><rect x="2" y="2" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="chev" d="M6.3 7l3 3-3 3M10.5 7l3 3-3 3" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <div>
+        <h1>HyperKeypad</h1>
+        <p>AI Keypad</p>
+      </div>
+    </header>
+
+    <section class="site">
+      <div class="site-row">
+        <span class="host" id="host">This page</span>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="hint" id="siteHint"></p>
+      <button class="btn" id="siteBtn" hidden></button>
+    </section>
+
+    <section class="toggles">
+      <label class="switch">
+        <span class="copy"><strong>Show keypad</strong><small>Floating panel on AI chat sites</small></span>
+        <input type="checkbox" id="visible">
+        <i aria-hidden="true"></i>
+      </label>
+      <label class="switch">
+        <span class="copy"><strong>Keys send with clipboard</strong><small id="modeHint">Keys add your copied text and send</small></span>
+        <input type="checkbox" id="mode">
+        <i aria-hidden="true"></i>
+      </label>
+      <label class="switch amber">
+        <span class="copy"><strong>Paste and send</strong><small id="keyHint">Press Tab to paste and send</small></span>
+        <input type="checkbox" id="paste">
+        <i aria-hidden="true"></i>
+      </label>
+    </section>
+
+    <footer>
+      <button class="link" id="shortcuts">Change shortcuts</button>
+      <a class="link" href="https://lockintools.com" target="_blank" rel="noopener">Lock In Tools</a>
+    </footer>
+
+    <script src="../content/defaults.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

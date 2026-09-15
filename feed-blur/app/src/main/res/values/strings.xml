@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FeedBlur</string>
+    <string name="service_description">Covers the Instagram home feed and mutes media while it is showing.</string>
+</resources>
