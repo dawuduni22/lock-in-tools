@@ -4,7 +4,7 @@ Three free, open source tools that cut the busywork out of focused work.
 All three run entirely on the user's own device. No accounts, no servers,
 nothing tracked.
 
-Site source: [dawuduni22/lockintools](https://github.com/dawuduni22/lockintools)
+Live site: **[lockintools.com](https://lockintools.com)**
 
 | Tool | Platform | What it does |
 |---|---|---|
